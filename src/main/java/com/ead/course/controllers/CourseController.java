@@ -65,7 +65,6 @@ public class CourseController {
         courseModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
 
         return ResponseEntity.status(HttpStatus.OK).body(courseService.save(courseModel));
-
     }
 
     @GetMapping
@@ -84,5 +83,4 @@ public class CourseController {
 
         return ResponseEntity.status(HttpStatus.OK).body(courseModelOptional.get());
     }
-
 }

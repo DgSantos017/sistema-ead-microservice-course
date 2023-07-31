@@ -30,4 +30,9 @@ public class ModuleServiceImplementation implements ModuleService {
         }
         moduleRepository.delete(moduleModel);
     }
+
+    @Override
+    public ModuleModel save(ModuleModel moduleModel) {
+        return moduleRepository.save(moduleModel);
+    }
 }
