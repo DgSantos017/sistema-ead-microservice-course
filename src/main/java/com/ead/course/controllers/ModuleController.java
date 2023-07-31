@@ -1,5 +1,6 @@
 package com.ead.course.controllers;
 
+import com.ead.course.dtos.CourseDto;
 import com.ead.course.dtos.ModuleDto;
 import com.ead.course.models.CourseModel;
 import com.ead.course.models.ModuleModel;
@@ -55,5 +56,24 @@ public class ModuleController {
         }
         moduleService.delete(moduleModelOptional.get());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
+    }
+
+    @PutMapping("/courses/{courseId}/modules/{moduleId}")
+    public ResponseEntity<Object> updateModule(@PathVariable(value = "courseId") UUID courseId,
+                                               @PathVariable(value = "moduleId") UUID moduleId,
+                                               @RequestBody @Valid ModuleDto moduleDto){
+
+        Optional<ModuleModel> moduleModelOptional = moduleService.findModuleIntoCourse(courseId, moduleId);
+
+        if(!moduleModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Module Not Found for this course");
+        }
+
+        var moduleModel = moduleModelOptional.get();
+
+        moduleModel.setTitle(moduleDto.getTitle());
+        moduleModel.setDescription(moduleDto.getDescription());
+
+        return ResponseEntity.status(HttpStatus.OK).body(moduleService.save(moduleModel));
     }
 }

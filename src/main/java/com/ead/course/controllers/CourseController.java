@@ -57,11 +57,11 @@ public class CourseController {
 
         var courseModel = courseModelOptional.get();
 
-        courseModel.setName(courseModel.getName());
-        courseModel.setDescription(courseModel.getDescription());
-        courseModel.setCourseStatus(courseModel.getCourseStatus());
-        courseModel.setImageUrl(courseModel.getImageUrl());
-        courseModel.setCourseLevel(courseModel.getCourseLevel());
+        courseModel.setName(courseDto.getName());
+        courseModel.setDescription(courseDto.getDescription());
+        courseModel.setCourseStatus(courseDto.getCourseStatus());
+        courseModel.setImageUrl(courseDto.getImageUrl());
+        courseModel.setCourseLevel(courseDto.getCourseLevel());
         courseModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
 
         return ResponseEntity.status(HttpStatus.OK).body(courseService.save(courseModel));
