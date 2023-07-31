@@ -58,4 +58,5 @@ public class CourseServiceImplementation implements CourseService {
     public List<CourseModel> findAll() {
         return courseRepository.findAll();
     }
+
 }
