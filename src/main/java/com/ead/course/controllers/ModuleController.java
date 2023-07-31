@@ -1,6 +1,5 @@
 package com.ead.course.controllers;
 
-import com.ead.course.dtos.CourseDto;
 import com.ead.course.dtos.ModuleDto;
 import com.ead.course.models.CourseModel;
 import com.ead.course.models.ModuleModel;
@@ -20,6 +19,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/modules")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class ModuleController {
 
@@ -29,7 +29,7 @@ public class ModuleController {
     @Autowired
     CourseService courseService;
 
-    @PostMapping("/courses/{courseId}/modules")
+    @PostMapping("/course/{courseId}")
     public ResponseEntity<Object> saveModule(@PathVariable(value = "courseId") UUID courseId,
                                              @RequestBody @Valid ModuleDto moduleDto){
 
@@ -47,7 +47,7 @@ public class ModuleController {
         return ResponseEntity.status(HttpStatus.CREATED).body(moduleService.save(moduleModel));
     }
 
-    @DeleteMapping("/courses/{courseId}/modules/{moduleId}")
+    @DeleteMapping("/course/{courseId}/module/{moduleId}")
     public ResponseEntity<Object> deleteCourse(@PathVariable(value = "courseId") UUID courseId,
                                                @PathVariable(value = "moduleId") UUID moduleId){
         Optional<ModuleModel> moduleModelOptional = moduleService.findModuleIntoCourse(courseId, moduleId);
@@ -59,7 +59,7 @@ public class ModuleController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
     }
 
-    @PutMapping("/courses/{courseId}/modules/{moduleId}")
+    @PutMapping("/course/{courseId}/module/{moduleId}")
     public ResponseEntity<Object> updateModule(@PathVariable(value = "courseId") UUID courseId,
                                                @PathVariable(value = "moduleId") UUID moduleId,
                                                @RequestBody @Valid ModuleDto moduleDto){
@@ -78,12 +78,12 @@ public class ModuleController {
         return ResponseEntity.status(HttpStatus.OK).body(moduleService.save(moduleModel));
     }
 
-    @GetMapping("/courses/{courseId}/modules/")
+    @GetMapping("/course/{courseId}/")
     public ResponseEntity<List<ModuleModel>> getAllModules(@PathVariable(value = "courseId") UUID courseId){
         return ResponseEntity.status(HttpStatus.OK).body(moduleService.findAllByCourse(courseId));
     }
 
-    @GetMapping("/courses/{courseId}/modules/{moduleId}")
+    @GetMapping("/course/{courseId}/module/{moduleId}")
     public ResponseEntity<Object> getOneModule(@PathVariable(value = "courseId") UUID courseId,
                                                @PathVariable(value = "moduleId") UUID moduleId){
 
