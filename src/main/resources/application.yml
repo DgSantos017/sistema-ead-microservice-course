@@ -5,7 +5,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/ead_course
     username: postgres
-    password: diogo123
+    password: 1234
 
   jpa:
     hibernate:
