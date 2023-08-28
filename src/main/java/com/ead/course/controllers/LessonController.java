@@ -94,7 +94,7 @@ public class LessonController {
         );
     }
 
-    @GetMapping("/{lessonId}/modules/{moduleId}")
+    @GetMapping("/{lessonId}/module/{moduleId}")
     public ResponseEntity<Object> getOneLesson(@PathVariable(value = "lessonId") UUID lessonId,
                                                @PathVariable(value = "moduleId") UUID moduleId){
 
