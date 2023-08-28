@@ -4,26 +4,26 @@
 ### baseUrl -> http://localhost:8082/
 
 # API Rest Features
-## Course -> courses/
-- saveCourse 
-- getAllCourses 
-- getOneCourse -> courseId
-- updateCourse -> courseId
-- deleteCourse -> courseId
+## Course
+- saveCourse -> courses
+- getAllCourses -> courses
+- getOneCourse -> courses/courseId
+- updateCourse -> courses/courseId
+- deleteCourse -> courses/courseId
   
-## Module -> modules/
-- saveModule -> course/courseId 
-- getAllModules -> course/courseId 
-- getOneModule -> course/courseId/module/moduleId
-- updateModule -> course/courseId/module/moduleId
-- deleteModule -> course/courseId/module/moduleId
+## Module 
+- saveModule -> modules/course/courseId 
+- getAllModules -> modules/course/courseId 
+- getOneModule -> modules/course/courseId/module/moduleId
+- updateModule -> modules/course/courseId/module/moduleId
+- deleteModule -> modules/course/courseId/module/moduleId
 
-## Lesson -> lessons/
-- saveLesson -> module/moduleId 
-- getAllLessons -> module/moduleId
-- getOneLesson -> lessonId/module/moduleId
-- updateLesson -> lessonId/module/moduleId
-- deleteLesson -> lessonId/module/moduleId
+## Lesson 
+- saveLesson -> lessons/module/moduleId 
+- getAllLessons -> lessons/module/moduleId
+- getOneLesson -> lessons/lessonId/module/moduleId
+- updateLesson -> lessons/lessonId/module/moduleId
+- deleteLesson -> lessons/lessonId/module/moduleId
 
 ## Requirements to Run Locally
 - Java: Version 11 or higher
