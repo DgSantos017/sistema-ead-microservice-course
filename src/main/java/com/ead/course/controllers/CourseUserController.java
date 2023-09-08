@@ -42,7 +42,7 @@ public class CourseUserController {
         return ResponseEntity.status(HttpStatus.OK).body(courseClient.getAllUsersByCourse(courseId, pageable));
     }
 
-    @PostMapping("course/{courseId}/subscription")
+    @PostMapping("course/{courseId}/subscription-user")
     public ResponseEntity<Object> saveSubscriptionUserInCourse(@PathVariable(value = "courseId") UUID courseId,
                                                                @RequestBody @Valid SubscriptionDto subscriptionDto){
 
