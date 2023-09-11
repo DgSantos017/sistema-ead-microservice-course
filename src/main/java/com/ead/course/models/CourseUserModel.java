@@ -28,4 +28,5 @@ public class CourseUserModel  implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private CourseModel course;
+
 }
