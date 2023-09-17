@@ -46,7 +46,7 @@
 - Fork and clone this repository
 - Download dependencies; if using IntelliJ, you can trigger Maven to handle this process automatically
 - Replace the database credentials (PostgreSQL) in the ``application.yml`` file with your local machine's credentials
-- From the ``AuthuserApplication`` file, execute the project; if everything is correct, the API will run on port 8087
+- From the ``CourseApplication`` file, execute the project; if everything is correct, the API will run on port 8087
 - Refer to the endpoints for accessing the resources in the ``requestsInsomnia.json`` file located at the root of this repository
 
 Developed by [Diogo Ferreira](https://www.linkedin.com/in/diogo-santos01/)
