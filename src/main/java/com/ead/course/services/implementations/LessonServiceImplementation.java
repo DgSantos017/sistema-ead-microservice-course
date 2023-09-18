@@ -1,4 +1,4 @@
-package com.ead.course.services.implementation;
+package com.ead.course.services.implementations;
 
 import com.ead.course.models.LessonModel;
 import com.ead.course.repositories.LessonRepository;
