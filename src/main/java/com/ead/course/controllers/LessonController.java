@@ -52,19 +52,30 @@ public class LessonController {
         return ResponseEntity.status(HttpStatus.CREATED).body(lessonService.save(lessonModel));
     }
 
-    @DeleteMapping("/{lessonId}/module/{moduleId}")
-    public ResponseEntity<Object> deleteLesson(@PathVariable(value = "lessonId") UUID lessonId,
+    @GetMapping("/module/{moduleId}")
+    public ResponseEntity<Page<LessonModel>> getAllLessons(@PathVariable(value = "moduleId") UUID moduleId,
+                                                           SpecificationTemplate.LessonSpec spec,
+                                                           @PageableDefault(page = 0, size = 5, sort = "lessonId", direction = Sort.Direction.ASC)
+                                                           Pageable pageable){
+        return ResponseEntity.status(HttpStatus.OK).body(lessonService.findAllModule(
+                SpecificationTemplate.lessonModuleId(moduleId).and(spec), pageable)
+        );
+    }
+
+    @GetMapping("/module/{moduleId}/lesson/{lessonId}")
+    public ResponseEntity<Object> getOneLesson(@PathVariable(value = "lessonId") UUID lessonId,
                                                @PathVariable(value = "moduleId") UUID moduleId){
+
         Optional<LessonModel> lessonModelOptional = lessonService.findLessonIntoModule(moduleId, lessonId);
 
         if(!lessonModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lesson Not Found for this module");
         }
-        lessonService.delete(lessonModelOptional.get());
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
+
+        return ResponseEntity.status(HttpStatus.OK).body(lessonModelOptional.get());
     }
 
-    @PutMapping("/{lessonId}/module/{moduleId}")
+    @PutMapping("/module/{moduleId}/lesson/{lessonId}")
     public ResponseEntity<Object> updateLesson(@PathVariable(value = "lessonId") UUID lessonId,
                                                @PathVariable(value = "moduleId") UUID moduleId,
                                                @RequestBody @Valid LessonDto lessonDto){
@@ -84,27 +95,15 @@ public class LessonController {
         return ResponseEntity.status(HttpStatus.OK).body(lessonService.save(lessonModel));
     }
 
-    @GetMapping("/module/{moduleId}")
-    public ResponseEntity<Page<LessonModel>> getAllLessons(@PathVariable(value = "moduleId") UUID moduleId,
-                                                           SpecificationTemplate.LessonSpec spec,
-                                                           @PageableDefault(page = 0, size = 5, sort = "lessonId", direction = Sort.Direction.ASC)
-                                                               Pageable pageable){
-        return ResponseEntity.status(HttpStatus.OK).body(lessonService.findAllModule(
-                SpecificationTemplate.lessonModuleId(moduleId).and(spec), pageable)
-        );
-    }
-
-    @GetMapping("/{lessonId}/module/{moduleId}")
-    public ResponseEntity<Object> getOneLesson(@PathVariable(value = "lessonId") UUID lessonId,
+    @DeleteMapping("/module/{moduleId}/lesson/{lessonId}")
+    public ResponseEntity<Object> deleteLesson(@PathVariable(value = "lessonId") UUID lessonId,
                                                @PathVariable(value = "moduleId") UUID moduleId){
-
         Optional<LessonModel> lessonModelOptional = lessonService.findLessonIntoModule(moduleId, lessonId);
 
         if(!lessonModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lesson Not Found for this module");
         }
-
-        return ResponseEntity.status(HttpStatus.OK).body(lessonModelOptional.get());
+        lessonService.delete(lessonModelOptional.get());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
     }
-
 }

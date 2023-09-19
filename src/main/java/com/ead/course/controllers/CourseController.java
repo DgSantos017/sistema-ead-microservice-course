@@ -49,15 +49,29 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.CREATED).body(courseService.save(courseModel));
     }
 
-    @DeleteMapping("/{courseId}")
-    public ResponseEntity<Object> deleteCourse(@PathVariable(value = "courseId") UUID courseId){
+    @GetMapping
+    public ResponseEntity<Page<CourseModel>> getAllCourses(SpecificationTemplate.CourseSpec spec,
+                                                           @PageableDefault(page = 0, size = 5, sort = "courseId", direction = Sort.Direction.ASC)
+                                                           Pageable pageable,
+                                                           @RequestParam(required = false)UUID userId) {
+        if(userId != null){
+            return ResponseEntity.status(HttpStatus.OK).body(courseService.findAll(SpecificationTemplate.CourseUserId(userId).and(spec), pageable));
+        } else{
+            return ResponseEntity.status(HttpStatus.OK).body(courseService.findAll(spec, pageable));
+        }
+
+    }
+
+    @GetMapping("/{courseId}")
+    public ResponseEntity<Object> getOneCourse(@PathVariable(value = "courseId") UUID courseId){
+
         Optional<CourseModel> courseModelOptional = courseService.findById(courseId);
 
         if(!courseModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course Not Found");
         }
-        courseService.delete(courseModelOptional.get());
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
+
+        return ResponseEntity.status(HttpStatus.OK).body(courseModelOptional.get());
     }
 
     @PutMapping("/{courseId}")
@@ -82,28 +96,14 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.OK).body(courseService.save(courseModel));
     }
 
-    @GetMapping
-    public ResponseEntity<Page<CourseModel>> getAllCourses(SpecificationTemplate.CourseSpec spec,
-                                                           @PageableDefault(page = 0, size = 5, sort = "courseId", direction = Sort.Direction.ASC)
-                                                           Pageable pageable,
-                                                           @RequestParam(required = false)UUID userId) {
-        if(userId != null){
-            return ResponseEntity.status(HttpStatus.OK).body(courseService.findAll(SpecificationTemplate.CourseUserId(userId).and(spec), pageable));
-        } else{
-            return ResponseEntity.status(HttpStatus.OK).body(courseService.findAll(spec, pageable));
-        }
-
-    }
-
-    @GetMapping("/{courseId}")
-    public ResponseEntity<Object> getOneCourse(@PathVariable(value = "courseId") UUID courseId){
-
+    @DeleteMapping("/{courseId}")
+    public ResponseEntity<Object> deleteCourse(@PathVariable(value = "courseId") UUID courseId){
         Optional<CourseModel> courseModelOptional = courseService.findById(courseId);
 
         if(!courseModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course Not Found");
         }
-
-        return ResponseEntity.status(HttpStatus.OK).body(courseModelOptional.get());
+        courseService.delete(courseModelOptional.get());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
     }
 }
