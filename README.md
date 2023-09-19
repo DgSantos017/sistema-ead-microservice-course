@@ -7,7 +7,7 @@
 - Fork and clone this repository
 - Download dependencies; if using IntelliJ, you can trigger Maven to handle this process automatically
 - Replace the database credentials (PostgreSQL) in the ``application.yml`` file with your local machine's credentials
-- From the ``CourseApplication`` file, execute the project; if everything is correct, the API will run on port 8087
+- From the ``CourseApplication`` file, execute the project; if everything is correct, the API will run on port 8082
 
 ## Where can I access the endpoints?
 I have shared a workspace in Insomnia with all the endpoints. If you would like to access it, please click on the link below:
