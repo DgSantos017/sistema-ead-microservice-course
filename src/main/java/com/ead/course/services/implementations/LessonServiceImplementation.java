@@ -35,12 +35,12 @@ public class LessonServiceImplementation implements LessonService {
     }
 
     @Override
-    public List<LessonModel> findAllModule(UUID moduleId) {
+    public List<LessonModel> findAllByModule(UUID moduleId) {
         return lessonRepository.findAllLessonsIntoModule(moduleId);
     }
 
     @Override
-    public Page<LessonModel> findAllModule(Specification<LessonModel> spec, Pageable pageable) {
+    public Page<LessonModel> findAllByModule(Specification<LessonModel> spec, Pageable pageable) {
         return lessonRepository.findAll(spec, pageable);
     }
 }

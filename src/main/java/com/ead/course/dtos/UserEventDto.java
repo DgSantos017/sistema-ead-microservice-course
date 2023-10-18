@@ -3,12 +3,14 @@ package com.ead.course.dtos;
 import com.ead.course.models.UserModel;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
+
 import java.util.UUID;
 
 @Data
 public class UserEventDto {
+
     private UUID userId;
-    private String userName;
+    private String username;
     private String email;
     private String fullName;
     private String userStatus;
@@ -23,5 +25,6 @@ public class UserEventDto {
         BeanUtils.copyProperties(this, userModel);
         return userModel;
     }
-}
 
+
+}

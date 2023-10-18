@@ -18,6 +18,7 @@ public class UserConsumer {
     @Autowired
     UserService userService;
 
+
     @RabbitListener(bindings = @QueueBinding(
             value = @Queue(value = "${ead.broker.queue.userEventQueue.name}", durable = "true"),
             exchange = @Exchange(value = "${ead.broker.exchange.userEventExchange}", type = ExchangeTypes.FANOUT, ignoreDeclarationExceptions = "true"))
@@ -26,13 +27,8 @@ public class UserConsumer {
         var userModel = userEventDto.convertToUserModel();
 
         switch (ActionType.valueOf(userEventDto.getActionType())){
-            case CREATE:
-            case UPDATE:
-                userService.save(userModel);
-                break;
-            case DELETE:
-                userService.delete(userEventDto.getUserId());
-                break;
+            case CREATE, UPDATE -> userService.save(userModel);
+            case DELETE -> userService.delete(userEventDto.getUserId());
         }
     }
 }

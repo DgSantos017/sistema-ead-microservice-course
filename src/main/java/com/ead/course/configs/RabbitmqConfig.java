@@ -28,4 +28,5 @@ public class RabbitmqConfig {
         objectMapper.registerModule(new JavaTimeModule());
         return new Jackson2JsonMessageConverter(objectMapper);
     }
+
 }
