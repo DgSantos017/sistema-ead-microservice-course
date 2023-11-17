@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,9 +28,8 @@ public class ModuleServiceImplementation implements ModuleService {
     @Transactional
     @Override
     public void delete(ModuleModel moduleModel) {
-
         List<LessonModel> lessonModelList = lessonRepository.findAllLessonsIntoModule(moduleModel.getModuleId());
-        if(!lessonModelList.isEmpty()){
+        if (!lessonModelList.isEmpty()){
             lessonRepository.deleteAll(lessonModelList);
         }
         moduleRepository.delete(moduleModel);
@@ -48,7 +47,7 @@ public class ModuleServiceImplementation implements ModuleService {
 
     @Override
     public List<ModuleModel> findAllByCourse(UUID courseId) {
-        return moduleRepository.findAllModulesIntoCourse(courseId);
+        return moduleRepository.findAllLModulesIntoCourse(courseId);
     }
 
     @Override

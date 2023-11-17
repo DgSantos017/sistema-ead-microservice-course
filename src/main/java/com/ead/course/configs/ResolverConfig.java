@@ -1,4 +1,5 @@
 package com.ead.course.configs;
+
 import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -7,14 +8,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 import java.util.List;
 
+
 @Configuration
 public class ResolverConfig extends WebMvcConfigurationSupport {
 
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers){
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new SpecificationArgumentResolver());
 
         PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
         argumentResolvers.add(resolver);
         super.addArgumentResolvers(argumentResolvers);
     }
+
 }
